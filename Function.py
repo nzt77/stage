@@ -1,4 +1,6 @@
 # contient les fonctions utilisé par le programme d'interface
 
-def Afficher(Texte):
-  print(Texte)
+class Global:
+
+  def Afficher(Texte):
+    print(Texte)
