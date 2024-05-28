@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QVBoxLayout, QWidget
 from datetime import datetime
 
@@ -35,6 +36,9 @@ class MainWindow(QMainWindow):
         time = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         with open("log.txt", "a") as file:
             file.write(f"{name}, {action}, {time}\n")
+=======
+from PyQt6.QtWidgets import QApplication, QMainWindow
+>>>>>>> 9b915e9c084e31b39eb3b10fb3e9cbc97297ed10
 
 app = QApplication([])
 window = MainWindow()
