@@ -1,5 +1,3 @@
-#interface pyqt5
-
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
 app = QApplication([])
