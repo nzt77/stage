@@ -15,14 +15,14 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.textbox)
 
         self.enter_button = QPushButton("Entrer")
-        self.enter_button.setFixedWidth(100)  # Réduire la largeur
-        self.enter_button.setFixedHeight(50)  # Augmenter la hauteur
+        self.enter_button.setFixedWidth(100)  
+        self.enter_button.setFixedHeight(50)  
         self.enter_button.clicked.connect(self.enter)
         self.layout.addWidget(self.enter_button)
 
         self.exit_button = QPushButton("Sortir")
-        self.exit_button.setFixedWidth(100)  # Réduire la largeur
-        self.exit_button.setFixedHeight(50)  # Augmenter la hauteur
+        self.exit_button.setFixedWidth(100)  
+        self.exit_button.setFixedHeight(50)  
         self.exit_button.clicked.connect(self.exit)
         self.layout.addWidget(self.exit_button)
 
