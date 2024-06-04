@@ -4,10 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <h1>Test de push en HTML</h1>
-    <h1> Test push modification</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h1>Test de push en HTML</h1>
+            <h1>Test push modification</h1>
+            <p>Bienvenue sur notre site. Ceci est un test d'une page HTML.</p>
+        </section>
+
+        <section>
+            <h2>Contactez-nous</h2>
+            <form id="contactForm">
+                <label for="name">Nom :</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message :</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <input type="submit" value="Envoyer">
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Mon Site Web</p>
+    </footer>
 </body>
 </html>
