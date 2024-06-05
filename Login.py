@@ -1,6 +1,6 @@
 import sys
 import requests
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QMessageBox
 
 class SimpleApp(QWidget):
     def __init__(self):
@@ -34,13 +34,23 @@ class SimpleApp(QWidget):
         self.setWindowTitle('Simple Login/Register Interface')
         self.setGeometry(100, 100, 300, 200)
 
+    def show_message(self, title, message):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Icon.Information)
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        msg.exec()
+
     def on_login(self):
         data = {
             'username': self.username_input.text(),
             'password': self.password_input.text()
         }
         response = requests.post('http://127.0.0.1:8000/login', json=data)
-        print(response.json())
+        if response.status_code == 200:
+            self.show_message("Success", "Connexion réussie")
+        else:
+            self.show_message("Error", response.json().get("detail", "Erreur inconnue"))
 
     def on_register(self):
         data = {
@@ -48,7 +58,10 @@ class SimpleApp(QWidget):
             'password': self.password_input.text()
         }
         response = requests.post('http://127.0.0.1:8000/register', json=data)
-        print(response.json())
+        if response.status_code == 200:
+            self.show_message("Success", "Utilisateur créé avec succès")
+        else:
+            self.show_message("Error", response.json().get("detail", "Erreur inconnue"))
 
 def main():
     app = QApplication(sys.argv)
