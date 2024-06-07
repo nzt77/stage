@@ -14,6 +14,7 @@ app.add_middleware(
     allow_headers=["*"],  # Permet tous les en-têtes
 )
 
+
 class User(BaseModel):
     id: int
     username: str
