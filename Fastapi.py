@@ -1,8 +1,18 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Vous pouvez restreindre cela à des domaines spécifiques en production
+    allow_credentials=True,
+    allow_methods=["*"],  # Permet toutes les méthodes (GET, POST, etc.)
+    allow_headers=["*"],  # Permet tous les en-têtes
+)
 
 class User(BaseModel):
     id: int
