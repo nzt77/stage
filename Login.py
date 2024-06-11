@@ -42,30 +42,47 @@ class LoginApp(QWidget):
         msg.setText(message)
         msg.exec()
 
+    def algo_password(self, password):
+        voyelle = 'aeiouAEIOU'
+        num_voyelle = sum(1 for char in password if char in voyelle)
+        num_digits = sum(1 for char in password if char.isdigit())
+        num_lower = sum(1 for char in password if char.islower())
+
+        algo = f"{password}{num_voyelle}{num_digits}{num_lower}"
+        return algo[::-1]
+
     def hash(self, password):
-        return hashlib.sha256(password.encode()).hexdigest()
+        algo_password = self.algo_password(password)
+        hashed = hashlib.sha256(algo_password.encode()).hexdigest()
+        return self.algo_password(hashed)
 
     def on_login(self):
         data = {
             'username': self.username_input.text(),
             'password': self.hash(self.password_input.text())
         }
-        response = requests.post('http://127.0.0.1:8000/login', json=data)
-        if response.status_code == 200:
-            self.show_message("Success", "Connexion réussie")
-        else:
-            self.show_message("Error", response.json().get("detail", "Erreur inconnue"))
+        try:
+            response = requests.post('http://127.0.0.1:8000/login', json=data)
+            if response.status_code == 200:
+                self.show_message("Success", "Connexion réussie")
+            else:
+                self.show_message("Error", response.json().get("detail", "Erreur inconnue"))
+        except requests.exceptions.RequestException as e:
+            self.show_message("Error", str(e))
 
     def on_register(self):
         data = {
             'username': self.username_input.text(),
             'password': self.hash(self.password_input.text())
         }
-        response = requests.post('http://127.0.0.1:8000/register', json=data)
-        if response.status_code == 200:
-            self.show_message("Success", "Utilisateur créé avec succès")
-        else:
-            self.show_message("Error", response.json().get("detail", "Erreur inconnue"))
+        try:
+            response = requests.post('http://127.0.0.1:8000/register', json=data)
+            if response.status_code == 200:
+                self.show_message("Success", "Utilisateur créé avec succès")
+            else:
+                self.show_message("Error", response.json().get("detail", "Erreur inconnue"))
+        except requests.exceptions.RequestException as e:
+            self.show_message("Error", str(e))
 
 def main():
     app = QApplication(sys.argv)
