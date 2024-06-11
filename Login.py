@@ -1,8 +1,9 @@
 import sys
+import hashlib
 import requests
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QMessageBox
 
-class SimpleApp(QWidget):
+class LoginApp(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -41,10 +42,13 @@ class SimpleApp(QWidget):
         msg.setText(message)
         msg.exec()
 
+    def hash(self, password):
+        return hashlib.sha256(password.encode()).hexdigest()
+
     def on_login(self):
         data = {
             'username': self.username_input.text(),
-            'password': self.password_input.text()
+            'password': self.hash(self.password_input.text())
         }
         response = requests.post('http://127.0.0.1:8000/login', json=data)
         if response.status_code == 200:
@@ -55,7 +59,7 @@ class SimpleApp(QWidget):
     def on_register(self):
         data = {
             'username': self.username_input.text(),
-            'password': self.password_input.text()
+            'password': self.hash(self.password_input.text())
         }
         response = requests.post('http://127.0.0.1:8000/register', json=data)
         if response.status_code == 200:
@@ -65,7 +69,7 @@ class SimpleApp(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    window = SimpleApp()
+    window = LoginApp()
     window.show()
     sys.exit(app.exec())
 
