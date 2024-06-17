@@ -18,3 +18,5 @@ utiliser le "Read Transaction" (en cliquant sur "try out" et "execute") pour voi
 transaction3.html pour pouvoir créer des transactions
 
 decryptage.py pour pouvoir decrypter les transactions (il faut juste rentrer le cryptage a decrypter)
+
+// le cryptage utilise une clef et la precedente transaction pour se faire, le seul moyen de decrypter cela est d'etre en possession de la clef presente dans le logiciel de decryptage 
