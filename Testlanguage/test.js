@@ -4,3 +4,4 @@ function result(){
     sessionStorage.setItem('Nom',name);
     sessionStorage.setItem('Prenom',surname);
 }
+
