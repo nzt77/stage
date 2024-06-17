@@ -78,9 +78,9 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id: Date.now(),  // Utiliser l'horodatage comme identifiant unique
+                    id: Date.now(),  
                     montant: parseFloat(montant),
-                    date: new Date().toISOString(),  // Ajouter la date actuelle
+                    date: new Date().toISOString(),  
                     auteur: auteur
                 })
             });
