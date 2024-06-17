@@ -10,9 +10,9 @@ def decrypt_data(encrypted_data: str) -> str:
     return '|'.join(transaction_data[:4]) 
 
 if __name__ == "__main__":
-    encrypted_data = input("Enter the encrypted data: ")
+    encrypted_data = input("Entrez le cryptage : ")
     try:
         decrypted_data = decrypt_data(encrypted_data)
-        print(f"Decrypted data: {decrypted_data}")
+        print(f"Data decryptées : {decrypted_data}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"Erreur: {e}")
