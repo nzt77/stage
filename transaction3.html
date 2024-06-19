@@ -49,7 +49,7 @@
 <body>
 
 <div class="form-container">
-    <form action="#" method="POST">
+    <form id="donForm">
         <div class="form-group">
             <label for="amount">Montant :</label>
             <input type="number" id="amount" name="amount" required>
@@ -63,6 +63,40 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById('donForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const montant = document.getElementById('amount').value;
+        const auteur = document.getElementById('author').value;
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/transactions/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: Date.now(),  
+                    montant: parseFloat(montant),
+                    date: new Date().toISOString(),  
+                    auteur: auteur
+                })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Transaction créée avec succès: ' + JSON.stringify(result.transaction));
+            } else {
+                alert('Erreur: ' + result.detail);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la soumission du formulaire:', error);
+            alert('Une erreur s\'est produite lors de la soumission du formulaire');
+        }
+    });
+</script>
 
 </body>
 </html>
