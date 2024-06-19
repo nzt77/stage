@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from cryptography.fernet import Fernet
 import hashlib
 from datetime import datetime
+import json
 
 app = FastAPI()
 
@@ -40,6 +41,9 @@ class EncryptedTransaction(BaseModel):
     id: int
     encrypted_data: str
 
+with open("config.json", "r") as file:
+    config = json.load(file)
+SECRET_KEY = config["SECRET_KEY"].encode()
 cipher = Fernet(SECRET_KEY)
 
 def encrypt_data(transaction: Transaction, previous_hash: str = "") -> str:
