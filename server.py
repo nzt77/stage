@@ -40,7 +40,6 @@ class EncryptedTransaction(BaseModel):
     id: int
     encrypted_data: str
 
-SECRET_KEY = b'jIWK3ZjOfN_Lsn_Z1pZzzCgOG7Fd7Jpxn-K25K42FCs='
 cipher = Fernet(SECRET_KEY)
 
 def encrypt_data(transaction: Transaction, previous_hash: str = "") -> str:
