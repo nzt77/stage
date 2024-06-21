@@ -1,4 +1,4 @@
-from Function import Global
+from poubelle.Function import Global
 import datetime
 
 def afficher_menu():
