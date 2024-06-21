@@ -3,9 +3,31 @@ from pydantic import BaseModel
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import hashes
+import base64
 import hashlib
 from datetime import datetime
 import json
+
+public_key_pem = '''-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0oW2ld1pySzH36hj+fkb
+8hyAZJnCFGYo40YlSrxoXNSv2Y7vZiMbLIpLSDMW+2AXUgNd7m00OBGHmhfd0Tmo
+aGjSkVB/xa3+D3FEJNONnr7O9D0Gw2AA7cEapvQQqxTatcTypQEmYEs11db0/OM1
+Mtddrd6yNp4nIShf9VV2c21JowCh9jDKlM5oimw/x5Ab5e3TjXVrNhxdqoZPaHu7
+OljwQ4zNIgblHQAS3UWweIigPQB2dic7W6Zu1O23Kr4k3iF6yL6m1FGvzQsLqljQ
+x9LMf4vQXQwtWfM76TfwpBgkN7jsJbQ8TIwM+/BR+YIrr2c+7O/rLIQEmtl9TYhE
+8QIDAQAB
+-----END PUBLIC KEY-----'''
+
+def load_public_key(pem_data):
+    public_key = serialization.load_pem_public_key(
+        pem_data.encode(),
+    )
+    return public_key
+
+public_key = load_public_key(public_key_pem)
 
 app = FastAPI()
 
@@ -40,20 +62,27 @@ class Transaction(BaseModel):
 class EncryptedTransaction(BaseModel):
     id: int
     encrypted_data: str
+    hash: str
 
-with open("config.json", "r") as file:
-    config = json.load(file)
-SECRET_KEY = config["SECRET_KEY"].encode()
-cipher = Fernet(SECRET_KEY)
+def encrypt_with_public_key(public_key, message):
+    encrypted = public_key.encrypt(
+        message.encode(),
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    return base64.b64encode(encrypted).decode('utf-8')
 
-def encrypt_data(transaction: Transaction, previous_hash: str = "") -> str:
+def encrypt_data(public_key, transaction: Transaction) -> str:
     transaction_data = f"{transaction.id}|{transaction.montant}|{transaction.date}|{transaction.auteur}"
-    combined_data = f"{transaction_data}|{previous_hash}"
-    encrypted_data = cipher.encrypt(combined_data.encode())
-    return encrypted_data.decode()
+    encrypted_data = encrypt_with_public_key(public_key, transaction_data)
+    return encrypted_data
 
-def hash_data(data: str) -> str:
-    return hashlib.sha256(data.encode()).hexdigest()
+def calculate_hash(transaction_data, previous_hash=""):
+    combined_data = f"{previous_hash}|{transaction_data}"
+    return hashlib.sha256(combined_data.encode()).hexdigest()
 
 transactions_db = {}
 
@@ -85,12 +114,14 @@ async def register(user: UserLogin):
 async def create_transaction(transaction: Transaction):
     transaction.id = len(transactions_db) + 1  
     transaction.date = datetime.now().isoformat()  
+    encrypted_data = encrypt_data(public_key, transaction)
+    transaction_data = f"{transaction.id}|{transaction.montant}|{transaction.date}|{transaction.auteur}"
     previous_transaction = transactions_db.get(transaction.id - 1)
-    previous_hash = hash_data(previous_transaction.encrypted_data) if previous_transaction else ""
-    encrypted_data = encrypt_data(transaction, previous_hash)
-    encrypted_transaction = EncryptedTransaction(id=transaction.id, encrypted_data=encrypted_data)
+    previous_hash = previous_transaction.hash if previous_transaction else ""
+    transaction_hash = calculate_hash(transaction_data, previous_hash)
+    encrypted_transaction = EncryptedTransaction(id=transaction.id, encrypted_data=encrypted_data, hash=transaction_hash)
     if transaction.id in transactions_db:
-        raise HTTPException(status_code=400, detail="Transaction ID existe deja")
+        raise HTTPException(status_code=400, detail="Transaction ID existe déjà")
     transactions_db[transaction.id] = encrypted_transaction
     return {"message": "Transaction créée avec succès !", "transaction": encrypted_transaction}
 
