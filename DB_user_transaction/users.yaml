@@ -1,0 +1,7 @@
+users:
+  - username: noa
+    password: noa12
+    role: client
+  - username: lucas
+    password: lucas12
+    role: client
