@@ -1,0 +1,19 @@
+users:
+- password: test
+  role: client
+  username: test
+- password: test
+  role: client
+  username: test2
+- password: PLr4EojNloNProTuvyn55nEDkNVURdLbHfMwsVsS2Jrs9PAdVJt6HSPItZV3CjzesaLXtBPub/ez4VtUc/epUuISa78pcIl1p5LY8O997KmlAtBw0LEXUwh85EQPoXeH6uJEfle58YsGWU/fLRkZ9Lqz/ve7uxvrgx/e25HueK1KKwRP+y6m+LinLAC+4N6RWpJnw6L/jRWEjKUYpiecyiw/Po8mlZrr3rISMTB5g3wO9HtA6B/WevwJSz4B+hj7xvO1KDif1mqxyLVk3Wkqe3tLIVP5YPZVH/ljOoFkJbS5/M1flE83B9AtS7KosAqZd0i0QPbSN+UWtQAR+GJPqQ==
+  role: reception
+  username: test3
+- password: Iw6o1LBdxCCZ4+8vpXzPoJVueSrPHQ7+8wE3MSfvYbLmPe9wyYyKHXPxOmTsKRY9ZVd7CurwkYA7pKaXpHsxrDSLPhd1yAmJRwoko9McKrSMdXNOJlDvwiX4RCxhSa6N97YtVu4B1dtljsu8AKocREJssc9d8ldQamaNAEw6Sii0ZaoFQScKh+ycj95R0msZc3CbL/I58Q76SBYlDqiqp1Y78lcRF+V7IIYXU3yRcSkVVIMKHlRKmGQUMfOAQ51tsDUEvHJCAJnL1tqIf9dOOWUa9p+2QIEWUA0f8Ivw/v1pWft7641XQIda6y8ax6ncPuVN/w+n2Gx9vmcosZ7w5g==
+  role: client
+  username: test4
+- password: eRyZ8ITbdQvpG/uu+ukUD757G661N9YADQEF2qNs7jZ2OW4uAWghZEdFU9H8VVlfdqXe+Z9eoSv/IK2HoQs7fNPtj8K4N7OXy9wjzpMRbsa0TDPAxehwvQBgF6Md3fUZlItw8oUssgo6ceiMPvE8c4bGlUPvM6XS6ap+xaBVJzjznIm0y03TS2mq1ijJ6dE6PBeD4p/x4xNY9n+IM11TkZxxMzhDJ0hSWR/7MXdmISy5nEKW4oK86tI+5vCF2weM6WA/Gj91BJopCEX+V3B8pUmPkLPE8BH6UmsnU/xisfmS/aKhsbCcBksCZgEHLCMchAB6jqrqGvVDV+OxzrfmBw==
+  role: client
+  username: test5
+- password: l6BaF4zNbaqn+BKqrJ6gdqRITrlLSPOJY32Ws3ZuXoPCIdZHuc09i/t3YLB+DojYB4JNjd3A4+VYMiBJ0WubAhBfmdABVhtS9OQlnGAXGZT10hAfCtSUHK+8ntyhgnImQ+tKmlZo451b+EGn+XMnX4QkM9EylFt9vB4v3lw3TC04PazxLken1f9/kAlRcxkj7w8uau6Fu0yc48nEHbp+xKv3YUYXeIANcDESpymjDNg0eS9mC9ZslzpWy5g1B8rA+KK/a2YziPQ5C5DVw+iHm8oLrtaTeyNH58JscRQlAt3o0rhzIPl9I1fricMlmALDpSOeUmKbKgqx7jsXDN0wLw==
+  role: client
+  username: test6
