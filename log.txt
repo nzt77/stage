@@ -1,0 +1,6 @@
+2024-07-01 10:08:59.041327 - Arrivee: noa, Role: reception
+2024-07-01 10:09:00.141325 - Depart: noa, Role: reception
+2024-07-01 10:09:01.368765 - Arrivee: noa, Role: reception
+2024-07-01 10:09:02.308732 - Depart: noa, Role: reception
+2024-07-01 10:10:38.368086 - Arrivee: lucas, Role: menage
+2024-07-01 10:10:50.677724 - Depart: lucas, Role: menage
